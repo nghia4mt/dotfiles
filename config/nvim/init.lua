@@ -1,7 +1,0 @@
-require("configs/basic")
-require("plugins/lazy-plug")
-require("plugins/markdown-preview")
-require("plugins/lualine")
-require("plugins/lsp/lsp")
-require("plugins/lsp/mason")
-require("plugins/lsp/cmp")
