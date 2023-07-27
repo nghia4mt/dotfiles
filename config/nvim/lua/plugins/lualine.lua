@@ -1,13 +1,11 @@
--- import lualine plugin safely
-local status, lualine = pcall(require, "lualine")
-if not status then
-	return
-end
-
--- configure lualine with modified theme
-lualine.setup({
+return {
+"nvim-lualine/lualine.nvim",
+config = function()
+	require("lualine").setup{
 	options = {
 		icon_enable = true,
 		theme = "auto",
 	},
-})
+	}
+end,
+}
