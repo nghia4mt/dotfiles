@@ -1,9 +1,8 @@
-**_My setup linux use daily (support ArchLinux and Fedora)_**
+**_My setup linux use daily (support ArchLinux and Ubuntu)_**
 
 # Requirement
 
 - [Git](https://github.com/git/git) <br/>
-- [Zsh](https://www.zsh.org/)
 
 ## Zsh
 
@@ -11,13 +10,12 @@
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
   - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
   - [zsh-z](https://github.com/agkozak/zsh-z)
-  - [zsh-sudo](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/sudo)
   - [starship](https://starship.rs/)
 
 ## Kitty Terminal
 
-- Fonts: [JetBrains Mono Nerd Font](https://github.com/mngnt/dotfiles/tree/main/fonts)
-- Color: [Dracula](https://draculatheme.com/kitty)
+- Fonts: [Hack Nerd Font](https://www.nerdfonts.com/)
+- Color: [Gruvbox](https://github.com/wdomitrz/kitty-gruvbox-theme)
 
 ## Tmux
 
