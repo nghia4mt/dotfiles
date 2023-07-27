@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Remove debloat
-sudo apt remove -y kde-spectacle kate skanlite vlc kwalletmanager plasma-vault haruna net-tools ufw plasma-firewall kup-backup
+sudo apt remove -y kde-spectacle flapak kate skanlite vlc kwalletmanager xed plasma-vault haruna net-tools ufw plasma-firewall kup-backup celluloid hypnotix
 
 ## Remove snapd
 sudo systemctl disable snapd.service
@@ -26,13 +26,12 @@ sudo usermod -aG wireshark $USER
 sudo usermod -aG docker $USER
 sudo usermod -aG vboxusers $USER
 
-##Install ibus-bamboo
-sudo add-apt-repository ppa:bamboo-engine/ibus-bamboo
-sudo apt-get update
-sudo apt-get install ibus ibus-bamboo --install-recommends
+## Install ibus-bamboo
+sudo add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
+sudo apt-get update -y
+sudo apt-get install ibus ibus-bamboo --install-recommends -y
 ibus restart
-# Đặt ibus-bamboo làm bộ gõ mặc định
-env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
+
 
 ## Install vscode
 wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
@@ -52,6 +51,6 @@ sudo apt update -y
 sudo apt install google-chrome-stable -y
 
 ## Install neovim
-sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo apt-get update -y
 sudo apt-get install neovim -y
