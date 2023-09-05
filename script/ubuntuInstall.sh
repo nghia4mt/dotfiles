@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ## Remove debloat
-sudo apt remove -y kde-spectacle flapak kate skanlite vlc kwalletmanager xed plasma-vault haruna net-tools ufw plasma-firewall kup-backup celluloid hypnotix
+sudo apt remove -y kde-spectacle flatpak kate skanlite vlc kwalletmanager xed \
+plasma-vault haruna net-tools ufw plasma-firewall kup-backup celluloid hypnotix
 
 ## Remove snapd
 sudo systemctl disable snapd.service
@@ -20,18 +21,11 @@ sudo add-apt-repository ppa:mozillateam/ppa -y
 sudo apt install firefox -y
 
 ##Install Package
-sudo apt install -y mpv wireshark docker.io nmap kitty tmux flameshot rofi openjdk-19-jdk openjdk-19-jre-headless nodejs npm dkms
+sudo apt install -y mpv wireshark docker.io nmap kitty tmux flameshot rofi openjdk-19-jdk openjdk-19-jre-headless nodejs npm dkms fcitx5 fcitx5-unikey
 
 sudo usermod -aG wireshark $USER
 sudo usermod -aG docker $USER
 sudo usermod -aG vboxusers $USER
-
-## Install ibus-bamboo
-sudo add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
-sudo apt-get update -y
-sudo apt-get install ibus ibus-bamboo --install-recommends -y
-ibus restart
-
 
 ## Install vscode
 wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
@@ -54,3 +48,11 @@ sudo apt install google-chrome-stable -y
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 sudo apt-get update -y
 sudo apt-get install neovim -y
+
+## Install nerd font
+wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip" -O $HOME/JetBrains-NF.zip
+cd $HOME
+unzip JetBrains-NF -d ./JetBrains-NF
+sudo cp -r JetBrains-NF /usr/share/fonts
+sudo fc-cache -f
+rm -rf JetBrains*
