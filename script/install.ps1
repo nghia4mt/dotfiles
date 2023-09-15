@@ -4,7 +4,6 @@ irm get.scoop.sh | iex
 scoop install git
 scoop update
 scoop bucket add nerd-fonts
-scoop bucket add main
 scoop bucket add extras
 
 
