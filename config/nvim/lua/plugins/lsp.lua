@@ -1,6 +1,6 @@
 return {
 	'VonHeikemen/lsp-zero.nvim',
-	branch = 'v2.x',
+	branch = 'v3.x',
 	dependencies = {
 		-- LSP Support
 		{ 'neovim/nvim-lspconfig' }, -- Required
@@ -48,7 +48,9 @@ return {
 
 		-- Begin Mason Setup --
 		require('mason').setup()
-		require('mason-lspconfig').setup()
+		require('mason-lspconfig').setup({
+			ensure_installed = { 'tsserver', 'lua_ls' },
+		})
 
 		lsp.extend_cmp()
 

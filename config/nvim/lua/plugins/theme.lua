@@ -1,9 +1,9 @@
 return {
 	{
-		"ellisonleao/gruvbox.nvim",
+		"Mofiqul/vscode.nvim",
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme gruvbox]])
+			vim.cmd([[colorscheme vscode]])
 		end,
 	},
 
