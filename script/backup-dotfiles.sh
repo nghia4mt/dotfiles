@@ -19,7 +19,7 @@ $SYNC ~/.config/fcitx5/ $DOTFILES/fcitx5/
 $SYNC ~/.config/rofi/ $DOTFILES/rofi/
 
 #Backup waybar
-$SYNC ~/.config/waybar $DOTFILES/waybar/
+$SYNC ~/.config/waybar/ $DOTFILES/waybar/
 
 #Backup starship
 cp -r ~/.config/starship.toml $DOTFILES
