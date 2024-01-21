@@ -1,3 +1,6 @@
+! Title: Remove short ytb
+
+
 ! YT Homepage - Hide the Shorts section
 youtube.com##[is-shorts]
 ! YT Menu - Hide the Shorts button
