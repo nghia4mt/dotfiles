@@ -18,7 +18,7 @@ function get_mute {
 
 # Uses regex to get brightness from xbacklight
 function get_brightness {
-    sudo light | grep -Po '[0-9]{1,3}' | head -n 1
+    light | grep -Po '[0-9]{1,3}' | head -n 1
 }
 
 # Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
@@ -93,13 +93,13 @@ case $1 in
 
     brightness_up)
     # Increases brightness and displays the notification
-    sudo light -A $brightness_step 
+    light -A $brightness_step 
     show_brightness_notif
     ;;
 
     brightness_down)
     # Decreases brightness and displays the notification
-    sudo light -U $brightness_step
+    light -U $brightness_step
     show_brightness_notif
     ;;
 esac

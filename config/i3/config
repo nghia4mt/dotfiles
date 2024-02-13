@@ -1,3 +1,5 @@
+include $HOME/.config/i3/theme.conf
+
 # Set mod key
 set $mod Mod4
 set $alt Mod1
@@ -29,7 +31,7 @@ floating_modifier $mod
 ############################### Shortcuts ############################################
 bindsym $mod+Return exec  alacritty
 bindsym $mod+e exec thunar
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -show drun
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+p exec pavucontrol
 bindsym Print exec flameshot gui 
@@ -144,13 +146,13 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/volume_brightness
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/volume_brightness.sh brightness_up
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/volume_brightness.sh brightness_down
+bindsym XF86MonBrightnessUp 	exec --no-startup-id ~/.config/i3/volume_brightness.sh brightness_up
+bindsym XF86MonBrightnessDown 	exec --no-startup-id ~/.config/i3/volume_brightness.sh brightness_down
 
 # Statusline
 bar {
-  position bottom
+  position top
   status_command i3status
-  font pango:JetBrainsMono Nerd Font 10
+  font pango:JetBrainsMono Nerd Font 11
 }
 
