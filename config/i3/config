@@ -11,6 +11,7 @@ exec_always blueman-applet
 exec_always dropbox
 exec_always dunst
 exec_always feh ~/Dropbox/monokai.png --bg-fill
+#exec_always --no-startup-id /home/mnghia/.config/polybar/launch.sh
 
 # Font
 font pango:JetBrainsMono Nerd Font 5
@@ -29,9 +30,10 @@ exec "xautolock -detectsleep -time 3 -locker \"i3lock -c 000000\""
 floating_modifier $mod
 
 ############################### Shortcuts ############################################
-bindsym $mod+Return exec  alacritty
+bindsym $mod+Return exec kitty
 bindsym $mod+e exec thunar
 bindsym $mod+d exec rofi -show drun
+bindsym $mod+Tab exec --no-startup-id rofi -modi combi -combi-modi window -show combi
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+p exec pavucontrol
 bindsym Print exec flameshot gui 
@@ -65,7 +67,6 @@ bindsym $mod+Shift+t floating toggle
 
 # Change focus between tiling / floating windows
 bindsym $mod+t focus mode_toggle
-
 
 # Change container layout (stacked, tabbed, toggle split)
 workspace_layout tabbed
@@ -110,17 +111,15 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Next/previous workspace
-bindsym $mod+Right workspace next
-bindsym $mod+Left workspace prev
+bindsym $alt+Tab workspace back_and_forth
+bindsym $alt+Shift+Tab workspace prev
 
-# Assign app
+# Rule
+for_window [class=".*"] title_format "___"
 for_window [class="firefox"] move to workspace number $ws1
-for_window [class="Alacritty"] move to workspace number $ws2
+for_window [class="kitty"] move to workspace number $ws2
 for_window [class="Code"] move to workspace number $ws2
 for_window [class="Evince"] move to workspace number $ws3
-for_window [class=".*"] title_format "___"
-
-# Force floating window
 for_window [class="Pavucontrol"] floating enable
 for_window [class="firefox" title="Firefox — Sharing Indicator"] floating enable
 
