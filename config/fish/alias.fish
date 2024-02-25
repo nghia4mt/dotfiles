@@ -1,18 +1,5 @@
-# Auto start tmux
-if [ -z "$TMUX" ]
-then
-    tmux attach -t tmn || tmux new -s tmn
-fi
-
-# Use bash-completion, if available
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
-	. /usr/share/bash-completion/bash_completion
-
-#######################################################################
-########################### Alias #####################################
-alias rl="source ~/.bashrc"
-
 # Quick Edit
+alias rl='source ~/.config/fish/config.fish'
 alias ek='nvim ~/.config/kitty/kitty.conf'
 alias et='nvim ~/.config/tmux/tmux.conf'
 alias dow="cd ~/Downloads ; ls"
@@ -20,10 +7,12 @@ alias eb='nvim ~/.bashrc'
 alias ...="cd ../.."
 alias ..="cd .."
 alias l="ls -lah"
-alias ls='ls --color=auto'
+alias ls='ls --color=auto -F'
 alias +x='chmod +x'
-alias mv="mv - i"
+alias mv="mv -i"
 alias cp="cp -i"
+alias rm='echo "This is not the command you are looking for."; false'
+alias tp='trash-put'
 
 # Alias git
 alias gst="git status"
