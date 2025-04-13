@@ -15,9 +15,8 @@ $SYNC ~/.config/rofi/ $DOTFILES/rofi/
 #Backup alacritty
 $SYNC ~/.config/alacritty/ $DOTFILES/alacritty/
 
-# Backup i3wm
-$SYNC ~/.config/i3/ $DOTFILES/i3/
-$SYNC ~/.config/i3status/ $DOTFILES/i3status/
+#Backup .zshrc
+$SYNC ~/.zshrc $DOTFILES/
 
-# Backup fish shell
-$SYNC ~/.config/fish/ $DOTFILES/fish/
+#Backup starship
+$SYNC ~/.config/starship.toml $DOTFILES/
