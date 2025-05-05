@@ -1,7 +1,7 @@
-return  {
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup()
-		end,
+return {
+	"altermo/ultimate-autopair.nvim",
+	config = function()
+		require("ultimate-autopair").setup {}
+	end,
+	
 }
-
