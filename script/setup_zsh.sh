@@ -1,5 +1,5 @@
 #/bin/bash
-sudo apt install curl zsh -y
+sudo dnf install curl zsh -y
 cp -r $HOME/dotfiles/.zshrc ~/
 mkdir ~/.zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
