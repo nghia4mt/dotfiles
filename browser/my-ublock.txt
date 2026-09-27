@@ -1,0 +1,62 @@
+{
+  "timeStamp": 1790475493869,
+  "version": "1.75.0",
+  "userSettings": {
+    "advancedUserEnabled": true,
+    "externalLists": "https://badblock.celenity.dev/abp/badblock.txt\nhttps://gitlab.com/DandelionSprout/adfilt/-/raw/master/LegitimateURLShortener.txt\nhttps://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/dyndns.txt\nhttps://raw.githubusercontent.com/nghia4mt/dotfiles/refs/heads/master/browser/remove-trash.txt\nhttps://raw.githubusercontent.com/yokoffing/filterlists/main/block_third_party_fonts.txt",
+    "importedLists": [
+      "https://badblock.celenity.dev/abp/badblock.txt",
+      "https://gitlab.com/DandelionSprout/adfilt/-/raw/master/LegitimateURLShortener.txt",
+      "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/dyndns.txt",
+      "https://raw.githubusercontent.com/nghia4mt/dotfiles/refs/heads/master/browser/remove-trash.txt",
+      "https://raw.githubusercontent.com/yokoffing/filterlists/main/block_third_party_fonts.txt"
+    ],
+    "popupPanelSections": 31
+  },
+  "selectedFilterLists": [
+    "user-filters",
+    "ublock-filters",
+    "ublock-badware",
+    "ublock-privacy",
+    "ublock-quick-fixes",
+    "ublock-unbreak",
+    "easylist",
+    "easyprivacy",
+    "adguard-spyware-url",
+    "block-lan",
+    "urlhaus-1",
+    "plowe-0",
+    "dpollock-0",
+    "fanboy-cookiemonster",
+    "ublock-cookies-easylist",
+    "fanboy-social",
+    "fanboy-ai-suggestions",
+    "easylist-chat",
+    "easylist-newsletters",
+    "easylist-notifications",
+    "easylist-annoyances",
+    "ublock-annoyances",
+    "VIE-1",
+    "https://gitlab.com/DandelionSprout/adfilt/-/raw/master/LegitimateURLShortener.txt",
+    "https://badblock.celenity.dev/abp/badblock.txt",
+    "https://raw.githubusercontent.com/yokoffing/filterlists/main/block_third_party_fonts.txt",
+    "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/dyndns.txt",
+    "https://raw.githubusercontent.com/nghia4mt/dotfiles/refs/heads/master/browser/remove-trash.txt"
+  ],
+  "hiddenSettings": {
+    "autoCommentFilterTemplate": "{{url}}",
+    "autoUpdateDelayAfterLaunch": 10,
+    "disableWebAssembly": true,
+    "filterAuthorMode": true,
+    "trustedListPrefixes": "-",
+    "updateAssetBypassBrowserCache": true
+  },
+  "whitelist": [
+    "chrome-extension-scheme",
+    "moz-extension-scheme"
+  ],
+  "dynamicFilteringString": "behind-the-scene * * noop\nbehind-the-scene * inline-script noop\nbehind-the-scene * 1p-script noop\nbehind-the-scene * 3p-script noop\nbehind-the-scene * 3p-frame noop\nbehind-the-scene * image noop\nbehind-the-scene * 3p noop",
+  "urlFilteringString": "",
+  "hostnameSwitchesString": "no-large-media: behind-the-scene false\nno-csp-reports: * true",
+  "userFilters": "||doubleclick.net^$important\n||google-analytics.com^$important"
+}
