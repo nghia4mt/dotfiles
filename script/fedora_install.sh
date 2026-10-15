@@ -102,8 +102,9 @@ show_summary() {
     echo "  5. Flatpak applications and the Flatpak runtime"
     echo ""
     echo "This script will INSTALL:"
+    echo "  - DNF tuned (max_parallel_downloads=10, fastestmirror=True)"
     echo "  - Visual Studio Code (native RPM, Microsoft repo)"
-    echo "  - JetBrains Mono Font (native Fedora package)"
+    echo "  - JetBrains Mono Nerd Font (github.com/ryanoasis/nerd-fonts)"
     echo "  - Zsh + plugins (autosuggestions, zsh-z, syntax-highlighting)"
     echo "  - Starship prompt"
     echo ""
@@ -127,7 +128,46 @@ create_backup() {
 }
 
 # ============================================================
-# SECTION 3: Update Package Metadata
+# SECTION 3: Configure DNF for Faster Downloads
+# ============================================================
+# Writes settings idempotently: updates existing keys, appends missing ones.
+configure_dnf() {
+    log_info "==> Tuning DNF configuration for faster downloads..."
+    local dnf_conf="/etc/dnf/dnf.conf"
+
+    if [[ ! -f "${dnf_conf}" ]]; then
+        log_warn "${dnf_conf} not found. Skipping DNF tuning."
+        return 0
+    fi
+
+    # key=value pairs to apply
+    local -A settings=(
+        [max_parallel_downloads]="10"
+        [fastestmirror]="True"
+        [defaultyes]="True"
+    )
+
+    for key in "${!settings[@]}"; do
+        local value="${settings[$key]}"
+        if grep -q "^${key}=" "${dnf_conf}"; then
+            # Update existing entry in place
+            sed -i "s|^${key}=.*|${key}=${value}|" "${dnf_conf}"
+        else
+            # Append under [main] section if present, otherwise just append
+            if grep -q "^\[main\]" "${dnf_conf}"; then
+                sed -i "/^\[main\]/a ${key}=${value}" "${dnf_conf}"
+            else
+                echo "${key}=${value}" >> "${dnf_conf}"
+            fi
+        fi
+        log_info "  DNF: ${key}=${value}"
+    done
+
+    log_info "DNF configuration updated. Parallel downloads: 10, fastestmirror: enabled."
+}
+
+# ============================================================
+# SECTION 4: Update Package Metadata
 # ============================================================
 update_metadata() {
     log_info "Updating package metadata..."
@@ -218,15 +258,35 @@ EOF
 }
 
 # ============================================================
-# SECTION 10: Install JetBrains Mono Font
+# SECTION 10: Install JetBrains Mono Nerd Font
 # ============================================================
 install_fonts() {
-    log_info "==> Installing JetBrains Mono Font..."
-    if ! dnf install -y jetbrains-mono-fonts-all; then
-        log_warn "Failed to install jetbrains-mono-fonts-all. Trying jetbrains-mono-fonts..."
-        dnf install -y jetbrains-mono-fonts || log_warn "Failed to install JetBrains Mono font. Continuing..."
+    log_info "==> Installing JetBrains Mono Nerd Font..."
+
+    local font_dir="/usr/local/share/fonts/JetBrainsMonoNF"
+    local nf_url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
+    local tmp_dir
+    tmp_dir="$(mktemp -d)"
+    local archive="${tmp_dir}/JetBrainsMono.tar.xz"
+
+    log_info "Downloading from GitHub: ryanoasis/nerd-fonts..."
+    if curl -fsSL --retry 3 --retry-delay 2 "${nf_url}" -o "${archive}"; then
+        mkdir -p "${font_dir}"
+        tar -xf "${archive}" -C "${font_dir}"
+        rm -f "${tmp_dir}"
+        # Refresh font cache system-wide
+        if command -v fc-cache &>/dev/null; then
+            fc-cache -f "${font_dir}"
+            log_info "Font cache refreshed."
+        fi
+        log_info "JetBrains Mono Nerd Font installed to ${font_dir}"
+    else
+        log_warn "GitHub download failed. Falling back to Fedora repository package..."
+        rm -rf "${tmp_dir}"
+        if ! dnf install -y jetbrains-mono-fonts-all; then
+            dnf install -y jetbrains-mono-fonts || log_warn "Failed to install JetBrains Mono font. Continuing..."
+        fi
     fi
-    log_info "JetBrains Mono font installation completed."
 }
 
 # ============================================================
@@ -324,10 +384,11 @@ show_completion_summary() {
     echo "     - Flatpak applications and runtime"
     echo "   Installed:"
     echo "     - Visual Studio Code (Microsoft native RPM)"
-    echo "     - JetBrains Mono Font"
+    echo "     - JetBrains Mono Nerd Font (/usr/local/share/fonts/JetBrainsMonoNF)"
     echo "     - Zsh + autosuggestions, zsh-z, syntax-highlighting"
     echo "     - Starship prompt"
     echo "   Configured:"
+    echo "     - DNF: max_parallel_downloads=10, fastestmirror=True"
     echo "     - .zshrc deployed from dotfiles"
     echo "     - Default shell set to zsh"
     if [[ -f "${BACKUP_FILE}" ]]; then
@@ -345,6 +406,7 @@ main() {
     check_root
     show_summary
     create_backup
+    configure_dnf
     update_metadata
     remove_kde_games
     remove_multimedia
