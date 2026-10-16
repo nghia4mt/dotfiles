@@ -13,10 +13,11 @@
 #   INSTALL
 #   6.  Visual Studio Code (native RPM from Microsoft repo)
 #   7.  JetBrains Mono Font (native Fedora package)
-#   8.  Zsh + plugins (zsh-autosuggestions, zsh-z, zsh-syntax-highlighting)
-#   9.  Starship prompt
-#   10. Deploys .zshrc from dotfiles repo
-#   11. Sets Zsh as the default shell
+#   8.  ONLYOFFICE Desktop Editors (native RPM)
+#   9.  Zsh + plugins (zsh-autosuggestions, zsh-z, zsh-syntax-highlighting)
+#   10. Starship prompt
+#   11. Deploys .zshrc from dotfiles repo
+#   12. Sets Zsh as the default shell
 #
 # Usage:
 #   sudo bash fedora_install.sh
@@ -105,6 +106,7 @@ show_summary() {
     echo "  - DNF tuned (max_parallel_downloads=10, fastestmirror=True)"
     echo "  - Visual Studio Code (native RPM, Microsoft repo)"
     echo "  - JetBrains Mono Nerd Font (github.com/ryanoasis/nerd-fonts)"
+    echo "  - ONLYOFFICE Desktop Editors (native RPM, ~280MB)"
     echo "  - Zsh + plugins (autosuggestions, zsh-z, syntax-highlighting)"
     echo "  - Starship prompt"
     echo ""
@@ -290,7 +292,33 @@ install_fonts() {
 }
 
 # ============================================================
-# SECTION 11: Install Zsh & Plugins
+# SECTION 11: Install ONLYOFFICE Desktop Editors
+# ============================================================
+install_onlyoffice() {
+    log_info "==> Installing ONLYOFFICE Desktop Editors (native RPM)..."
+
+    local rpm_path="/tmp/onlyoffice-desktopeditors.x86_64.rpm"
+    local rpm_url="https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors.x86_64.rpm"
+
+    log_info "Downloading ONLYOFFICE RPM (~280MB)..."
+    if ! curl -fsSL --retry 3 --retry-delay 2 "${rpm_url}" -o "${rpm_path}"; then
+        log_warn "Failed to download ONLYOFFICE RPM. Skipping ONLYOFFICE installation."
+        return 0
+    fi
+
+    log_info "Installing ONLYOFFICE Desktop Editors..."
+    if dnf install -y "${rpm_path}"; then
+        rm -f "${rpm_path}"
+        log_info "ONLYOFFICE Desktop Editors installed successfully."
+        log_info "Launch with: desktopeditors"
+    else
+        log_warn "Failed to install ONLYOFFICE Desktop Editors. Continuing..."
+        rm -f "${rpm_path}"
+    fi
+}
+
+# ============================================================
+# SECTION 12: Install Zsh & Plugins
 # ============================================================
 install_zsh() {
     log_info "==> Installing Zsh and prerequisites..."
@@ -303,7 +331,7 @@ install_zsh() {
 }
 
 # ============================================================
-# SECTION 12: Install Starship Prompt
+# SECTION 13: Install Starship Prompt
 # ============================================================
 install_starship() {
     if command -v starship &>/dev/null; then
@@ -320,7 +348,7 @@ install_starship() {
 }
 
 # ============================================================
-# SECTION 13: Deploy .zshrc from Dotfiles
+# SECTION 14: Deploy .zshrc from Dotfiles
 # ============================================================
 deploy_zshrc() {
     # Resolve source .zshrc — prefer config/.zshrc, fall back to repo root
@@ -347,7 +375,7 @@ deploy_zshrc() {
 }
 
 # ============================================================
-# SECTION 14: Set Zsh as Default Shell
+# SECTION 15: Set Zsh as Default Shell
 # ============================================================
 set_default_shell() {
     local zsh_path
@@ -363,7 +391,7 @@ set_default_shell() {
 }
 
 # ============================================================
-# SECTION 15: Cleanup Package Cache
+# SECTION 16: Cleanup Package Cache
 # ============================================================
 cleanup() {
     log_info "==> Cleaning up package cache..."
@@ -371,7 +399,7 @@ cleanup() {
 }
 
 # ============================================================
-# SECTION 16: Completion Summary
+# SECTION 17: Completion Summary
 # ============================================================
 show_completion_summary() {
     echo ""
@@ -385,6 +413,7 @@ show_completion_summary() {
     echo "   Installed:"
     echo "     - Visual Studio Code (Microsoft native RPM)"
     echo "     - JetBrains Mono Nerd Font (/usr/local/share/fonts/JetBrainsMonoNF)"
+    echo "     - ONLYOFFICE Desktop Editors (/usr/bin/desktopeditors)"
     echo "     - Zsh + autosuggestions, zsh-z, syntax-highlighting"
     echo "     - Starship prompt"
     echo "   Configured:"
@@ -415,6 +444,7 @@ main() {
     remove_flatpak
     install_vscode
     install_fonts
+    install_onlyoffice
     install_zsh
     install_starship
     deploy_zshrc
